@@ -13,4 +13,17 @@ class Node{
             return true;
         return false;
     }
+
+    unvisitedNeighbors(){
+        let unvisited = [];
+        if(this.y > 0 && !grid[this.y-1][this.x].mazeVisited)
+            unvisited.push(grid[this.y-1][this.x]);
+        if(this.x > 0 && !grid[this.y][this.x-1].mazeVisited)
+            unvisited.push(grid[this.y][this.x-1]);
+        if(this.y < rows-1 && !grid[this.y+1][this.x].mazeVisited)
+            unvisited.push(grid[this.y+1][this.x]);
+        if(this.x < cols-1 && !grid[this.y-1][this.x].mazeVisited)
+            unvisited.push(grid[this.y][this.x+1]);
+        return unvisited;
+    }
 }
