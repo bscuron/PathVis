@@ -1,0 +1,63 @@
+:root{
+    --primary-color: #D86C70;
+    --secondary-color: #7F8076;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    font-family: 'Verdana' !important;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 10vh 5vh 10vh 75vh;
+}
+
+div#header-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div#header-container > h1{
+    font-size: 400%;
+    color: var(--primary-color);
+}
+
+div#help-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div#help-container > p{
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+div#options{
+    display: flex;
+    align-items: center;
+    /* background: var(--primary-color); */
+    /* color: var(--secondary-color); */
+}
+
+div#options > input[type='number']{
+    height: 35%;
+    padding: 4px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: solid 1px var(--secondary-color);
+}
+
+div#options > input[type='radio']{
+    margin: 10px;
+}
+
+/* div#canvas{ */
+/* } */
+

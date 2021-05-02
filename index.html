@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PathVis</title>
+        <link rel="stylesheet" type="text/css" href="./style/main.css" media="screen"/>
+        <script src='./script/.p5.min.js'></script>
+        <script src='./script/Node.js'></script>
+        <script src='./script/main.js'></script>
+    </head>
+    <body>
+        <div id="header-container">
+            <h1>PathVis</h1>
+        </div>
+        <div id="help-container">
+            <p><b><i>Help:</i></b> You can specify the number of <b>rows/cols</b> by using the input boxes below. 
+            To <b>draw</b> on the grid, select which type of node you want using the radio buttons,
+            then hold in the mouse and draw. To <b>unselect a drawn node</b>, hold in shift, hold down the mouse, and draw.</p>
+        </div>
+        <div id="options">
+            <input id="rows" type="number" placeholder="Rows" onkeyup="initGrid()">
+            <input id="cols" type="number" placeholder="Cols" onkeyup="initGrid()">
+
+            <!-- Pick which node you want to place on the grid -->
+            <input type="radio" id="start" name="node-type" value="1">
+            <label for="node-type">Start</label>
+            <input type="radio" id="finish" name="node-type" value="2">
+            <label for="node-type">Finish</label>
+            <input type="radio" id="wall" name="node-type" value="3" checked>
+            <label for="node-type">Wall</label>
+        </div>
+        <div id="canvas"></div>
+    </body>
+</html>
