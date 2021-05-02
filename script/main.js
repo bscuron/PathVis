@@ -326,7 +326,6 @@ function bfs(){
 
     pathRenderQueue = [];
     if(!current.equals(getFinishNode())){
-        // alert('No path found!');
         return null;
     }
     current = current.parent;
