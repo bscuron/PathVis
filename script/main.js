@@ -6,7 +6,8 @@ let defaultCols = 20;
 
 let pathRenderQueue = [];
 let visitedRenderQueue = [];
-let speed = 2;
+let speed = 1;
+let algorithm = 1;
 
 function setup(){
     let cw = document.getElementById('canvas').offsetWidth;
@@ -24,10 +25,28 @@ function draw(){
     background(0);
     drawGrid();
     drawNodes();
+    drawVisual(algorithm);
+}
+
+function drawVisual(algo){
+    let showAmount = null;
+
+    if(algo == 1){
+        showAmount = 4;
+    }else if(algo == 2){
+        showAmount = 1;
+    }else if(algo == 3){
+        showAmount = 4;
+    }
+
     //draw visited nodes first
     if(visitedRenderQueue.length > 0 && frameCount % speed == 0){
-        let current = visitedRenderQueue.shift();
-        current.value = 5;
+        for(let i = 0; i < showAmount; i++){
+            if(visitedRenderQueue.length > 0){
+                let current = visitedRenderQueue.shift();
+                current.value = 5;
+            }
+        }
     }
 
     //draw path nodes second
@@ -185,6 +204,9 @@ function drawNodes(){
 }
 
 function startSearch(){
+    if(getStartNode() == null || getFinishNode() == null)
+        alert('Place both a start and finish node before starting!');
+
     for(let i = 0; i < grid.length; i++){
         for(let j = 0; j < grid[i].length; j++){
             grid[i][j].parent = null;
@@ -195,8 +217,9 @@ function startSearch(){
     }
     //get which algorithm is selected by the user
     let radios = document.getElementsByName('algorithm-choice');
-    let algorithm = 0;
 
+    //get which algorithm is checked by the user
+    algorithm = 0;
     for(let i = 0; i < radios.length; i++) {
         if(radios[i].checked){
             // console.log('found the checkeditem')
@@ -231,8 +254,7 @@ function getStartNode(){
         }
     }
 
-    alert('Please place a start node before starting!');
-    window.location.reload();
+    return null;
 }
 
 //returns the location of the finish node
@@ -244,8 +266,7 @@ function getFinishNode(){
         }
     }
 
-    alert('Please place a finish node before starting!');
-    window.location.reload();
+    return null;
 }
 
 function bfs(){
