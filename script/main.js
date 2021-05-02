@@ -326,8 +326,8 @@ function bfs(){
 
     pathRenderQueue = [];
     if(!current.equals(getFinishNode())){
-        alert('No path found!');
-        return;
+        // alert('No path found!');
+        return null;
     }
     current = current.parent;
     while(current.parent != null){
@@ -336,6 +336,15 @@ function bfs(){
     }
 }
 
+//iterative dfs maze generation
 function generateMaze(){
+    //remove start and finish nodes
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[i].length; j++){
+            grid[i][j].value = 3;
+        }
+    }
 
+    let initial = grid[Math.floor(Math.random() * rows)][Math.floor(Math.random() * cols)];
+    let list = [initial];
 }

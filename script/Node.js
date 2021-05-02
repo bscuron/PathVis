@@ -4,6 +4,7 @@ class Node{
         this.y = y;
         this.value = value;
         this.visited = false;
+        this.mazeVisited = false;
         this.parent = null;
     }
 
