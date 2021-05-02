@@ -5,6 +5,7 @@ let defaultRows = 20;
 let defaultCols = 20;
 
 let pathRenderQueue = [];
+let visitedRenderQueue = [];
 let speed = 2;
 
 function setup(){
@@ -23,7 +24,14 @@ function draw(){
     background(0);
     drawGrid();
     drawNodes();
-    if(pathRenderQueue.length > 0 && frameCount % speed == 0){
+    //draw visited nodes first
+    if(visitedRenderQueue.length > 0 && frameCount % speed == 0){
+        let current = visitedRenderQueue.shift();
+        current.value = 5;
+    }
+
+    //draw path nodes second
+    else if(pathRenderQueue.length > 0 && frameCount % speed == 0){
         let current = pathRenderQueue.pop();
         current.value = 4;
     }
@@ -93,6 +101,11 @@ function drawGrid(){
             //path node
             if(grid[i][j].value == 4){
                 fill(252,252,159);
+            } 
+
+            //visited node
+            else if(grid[i][j].value == 5){
+                fill(234, 233, 208);
             }
 
             rect(j * xstep, i * ystep, xstep, ystep);
@@ -111,6 +124,15 @@ function drawNodes(){
     for(let i = 0; i < grid.length; i++){
         for(let j = 0; j < grid[i].length; j++){
             if(grid[i][j].value == 4)
+                grid[i][j].value = 0;
+        }
+    }
+
+    //clear any visited nodes and empty the render queue
+    visitedRenderQueue = [];
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[i].length; j++){
+            if(grid[i][j].value == 5)
                 grid[i][j].value = 0;
         }
     }
@@ -243,6 +265,7 @@ function bfs(){
         //north
         if(current.y > 0 && !grid[current.y-1][current.x].visited && grid[current.y-1][current.x].value != 3){
             let neighbor = grid[current.y-1][current.x];
+            visitedRenderQueue.push(neighbor);
             neighbor.visited = true;
             neighbor.parent = current;
             queue.push(neighbor);
@@ -251,6 +274,7 @@ function bfs(){
         //south
         if(current.y < rows-1 && !grid[current.y+1][current.x].visited && grid[current.y+1][current.x].value != 3){
             let neighbor = grid[current.y+1][current.x];
+            visitedRenderQueue.push(neighbor);
             neighbor.visited = true;
             neighbor.parent = current;
             queue.push(neighbor);
@@ -259,6 +283,7 @@ function bfs(){
         //east
         if(current.x < cols-1 && !grid[current.y][current.x+1].visited && grid[current.y][current.x+1].value != 3){
             let neighbor = grid[current.y][current.x+1];
+            visitedRenderQueue.push(neighbor);
             neighbor.visited = true;
             neighbor.parent = current;
             queue.push(neighbor);
@@ -267,9 +292,17 @@ function bfs(){
         //west
         if(current.x > 0 && !grid[current.y][current.x-1].visited && grid[current.y][current.x-1].value != 3){
             let neighbor = grid[current.y][current.x-1];
+            visitedRenderQueue.push(neighbor);
             neighbor.visited = true;
             neighbor.parent = current;
             queue.push(neighbor);
+        }
+    }
+
+    //remove the end node from the visited list (for rendering purposes)
+    for(let i = 0; i < visitedRenderQueue.length; i++){
+        if(visitedRenderQueue[i].value == 2){
+            visitedRenderQueue.splice(i, 1);
         }
     }
 
