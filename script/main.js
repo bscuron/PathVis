@@ -106,7 +106,8 @@ function drawNodes(){
     if(!mouseIsPressed)
         return
 
-    //clear any path nodes
+    //clear any path nodes and empty the render queue
+    pathRenderQueue = [];
     for(let i = 0; i < grid.length; i++){
         for(let j = 0; j < grid[i].length; j++){
             if(grid[i][j].value == 4)
