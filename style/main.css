@@ -17,7 +17,7 @@ body{
     font-family: 'Verdana' !important;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 10vh 10vh 10vh 70vh;
+    grid-template-rows: 10vh 5vh 5vh 80vh;
 }
 
 div#header-container{
@@ -44,26 +44,18 @@ div#help-container > p{
     margin-bottom: 10px;
 }
 
-div#options{
+div#options-container{
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background: var(--primary-color); */
-    /* color: var(--secondary-color); */
 }
 
-div#options > b{
+div#options-container > b{
     margin-left: 10px;
+    margin-right: 5px;
 }
 
-input[type='button']:hover{
-    cursor: pointer;
-    background: #ffffff !important;
-    color: var(--primary-color);
-    border-color: var(--primary-color) !important;
-}
-
-div#options > input[type='number']{
+div#options-container > input[type='number']{
     height: 35%;
     padding: 4px;
     margin-left: 10px;
@@ -71,13 +63,33 @@ div#options > input[type='number']{
     border: solid 1px var(--secondary-color);
 }
 
-div#options > input[type='button']{
-    background: whitesmoke;
-    height: 25%;
-    width: 5%;
-    padding: 4px;
-    border: solid 1px var(--secondary-color);
+div#options-container > input[type='radio']{
+    margin: 4px;
+}
+
+div#operations-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: solid 3px var(--primary-color);
+}
+
+div#operations-container > input[type='button']{
+    background: var(--primary-color);
+    color: #ffffff;
+    min-height: 50%;
+    min-width: 10%;
+    padding: 4px !important;
+    border: solid 1px #ffffff;
     margin-left: 10px;
+    margin-right: 10px;
+}
+
+div#operations-container > input[type='button']:hover{
+    cursor: pointer;
+    background: #ffffff !important;
+    color: var(--primary-color);
+    border-color: var(--primary-color) !important;
 }
 
 
@@ -85,10 +97,5 @@ input[type='number']:focus{
     outline-color: var(--primary-color) !important;
 }
 
-div#options > input[type='radio']{
-    margin: 10px;
-}
-
 /* div#canvas{ */
 /* } */
-

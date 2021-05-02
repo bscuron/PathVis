@@ -11,15 +11,11 @@
         <div id="header-container">
             <h1>PathVis</h1>
         </div>
-        <div id="help-container">
-            <p><b><i>Help:</i></b> You can specify the number of <b>rows/cols</b> by using the input boxes below. 
-            To <b>draw</b> on the grid, select which type of node you want using the radio buttons,
-            then hold in the mouse and draw. To <b>unselect a drawn node</b>, hold in shift, hold down the mouse, and draw.</p>
-        </div>
-        <div id="options">
+
+        <div id="options-container">
             <!-- Input how many rows/cols in the grid (Default is 20x20) -->
-            <input id="rows" type="number" placeholder="Rows" onkeyup="initGrid()">
-            <input id="cols" type="number" placeholder="Cols" onkeyup="initGrid()">
+            <input id="rows" type="number" min='5' placeholder="Rows" onkeyup="initGrid()">
+            <input id="cols" type="number" min='5' placeholder="Cols" onkeyup="initGrid()">
 
             <!-- Pick which node you want to place on the grid -->
             <b>Node Type:</b>
@@ -32,16 +28,25 @@
 
             <!-- Decide which algorithm to use -->
             <b>Algorithm:</b>
-            <input type="radio" id="bfs" name="algorithm-choice" value="1" checked>
-            <label for="algorithm-choice">BFS</label>
+            <select id="algorithm-choice">
+                <option value="1">BFS</option>
+                <option value="2">DFS</option>
+                <option value="3">Dijkstra</option>
+            </select>
+            <!-- <input type="radio" id="bfs" name="algorithm-choice" value="1" checked> -->
+            <!-- <label for="algorithm-choice">BFS</label> -->
             <!-- <input type="radio" id="dfs" name="algorithm-choice" value="2"> -->
             <!-- <label for="algorithm-choice">DFS</label> -->
             <!-- <input type="radio" id="dijkstra" name="algorithm-choice" value="3"> -->
             <!-- <label for="algorithm-choice">Dijkstra</label> -->
+        </div>
 
+        <div id="operations-container">
             <!-- start the algorithm -->
+            <input type="button" value="Reset Grid" onclick="initGrid()">
             <input type="button" value="Start" onclick="startSearch()">
         </div>
+
         <div id="canvas"></div>
     </body>
 </html>

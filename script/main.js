@@ -9,6 +9,8 @@ let visitedRenderQueue = [];
 let speed = 1;
 let algorithm = 1;
 
+let executionTime = '---';
+
 function setup(){
     let cw = document.getElementById('canvas').offsetWidth;
     let ch = document.getElementById('canvas').offsetHeight;
@@ -68,9 +70,9 @@ function windowResized(){
 function initGrid(){
     //read in the input from the user. If the number give > 0 use it, otherwise use the default values
     let rowInput = document.getElementById('rows').value;
-    rows = rowInput > 0 ? rowInput : defaultRows;
+    rows = rowInput >= 5 ? rowInput : defaultRows;
     let colInput = document.getElementById('cols').value;
-    cols = colInput > 0 ? colInput : defaultCols;
+    cols = colInput >= 5 ? colInput : defaultCols;
 
     //update the size of the blocks/nodes
     xstep = width / cols;
@@ -84,6 +86,9 @@ function initGrid(){
             grid[i].push(new Node(j, i, 0));
         }
     }
+
+    grid[1][1].value = 1;
+    grid[rows - 2][cols - 2].value = 2;
 
     // TODO remove these
     // console.log(`Rows = ${rows}`);
@@ -215,17 +220,9 @@ function startSearch(){
                 grid[i][j].value = 0;
         }
     }
-    //get which algorithm is selected by the user
-    let radios = document.getElementsByName('algorithm-choice');
 
-    //get which algorithm is checked by the user
-    algorithm = 0;
-    for(let i = 0; i < radios.length; i++) {
-        if(radios[i].checked){
-            // console.log('found the checkeditem')
-            algorithm = radios[i].value;
-        }
-    }
+    let algorithmDrop = document.getElementById('algorithm-choice');
+    algorithm = algorithmDrop.options[algorithmDrop.selectedIndex].value;
 
     //0 == BFS, 1 == DFS, 2 == Dijkstra
     // console.log(`algorithm = ${algorithm}`);
@@ -337,4 +334,8 @@ function bfs(){
         pathRenderQueue.push(current);
         current = current.parent;
     }
+}
+
+function generateMaze(){
+
 }
