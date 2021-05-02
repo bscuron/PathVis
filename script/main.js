@@ -11,7 +11,7 @@ function setup(){
     canvas.parent('canvas');
     rows = defaultRows;
     cols = defaultCols;
-    grid = initGrid();
+    initGrid();
     xstep = width / cols;
     ystep = height / rows
 }
@@ -42,11 +42,11 @@ function initGrid(){
     ystep = height / rows
 
     //init a new grid
-    newGrid = [];
+    grid = [];
     for(let i = 0; i < rows; i++){
-        newGrid.push([]);
+        grid.push([]);
         for(let j = 0; j < cols; j++){
-            newGrid[i].push(new Node(0));
+            grid[i].push(new Node(0));
         }
     }
 
@@ -54,8 +54,6 @@ function initGrid(){
     // console.log(`Rows = ${rows}`);
     // console.log(`Cols = ${cols}`);
     // console.log(grid);
-
-    return newGrid;
 }
 
 function drawGrid(){
