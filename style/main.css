@@ -46,12 +46,13 @@ div#help-container > p{
 
 div#options{
     display: flex;
+    justify-content: center;
     align-items: center;
     /* background: var(--primary-color); */
     /* color: var(--secondary-color); */
 }
 
-div#options > h3{
+div#options > b{
     margin-left: 10px;
 }
 
