@@ -109,7 +109,7 @@ function drawNodes(){
     //if the shift key is down, it clears any node underneath the cursor
     if(keyIsDown(16)){
         // TODO remove this
-        console.log('Clearing node under cursor...')
+        // console.log('Clearing node under cursor...')
 
         //set the node under the cursor to blank
         grid[y][x].value = 0;
@@ -118,7 +118,7 @@ function drawNodes(){
 
     //get the radio buttons
     let radios = document.getElementsByName('node-type');
-    console.log(radios);
+    // console.log(radios);
     let value = 0;
 
     for(let i = 0; i < radios.length; i++) {
@@ -139,6 +139,6 @@ function drawNodes(){
         }
     }
 
-    console.log(`value = ${value}`);
+    // console.log(`value = ${value}`);
     grid[y][x].value = value;
 }
