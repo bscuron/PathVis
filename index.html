@@ -17,16 +17,30 @@
             then hold in the mouse and draw. To <b>unselect a drawn node</b>, hold in shift, hold down the mouse, and draw.</p>
         </div>
         <div id="options">
+            <!-- Input how many rows/cols in the grid (Default is 20x20) -->
             <input id="rows" type="number" placeholder="Rows" onkeyup="initGrid()">
             <input id="cols" type="number" placeholder="Cols" onkeyup="initGrid()">
 
             <!-- Pick which node you want to place on the grid -->
+            <h3>Node Type:</h3>
             <input type="radio" id="start" name="node-type" value="1">
             <label for="node-type">Start</label>
             <input type="radio" id="finish" name="node-type" value="2">
             <label for="node-type">Finish</label>
             <input type="radio" id="wall" name="node-type" value="3" checked>
             <label for="node-type">Wall</label>
+
+            <!-- Decide which algorithm to use -->
+            <h3>Algorithm:</h3>
+            <input type="radio" id="bfs" name="algorithm-choice" value="1">
+            <label for="algorithm-choice">BFS</label>
+            <input type="radio" id="dfs" name="algorithm-choice" value="2">
+            <label for="algorithm-choice">DFS</label>
+            <input type="radio" id="dijkstra" name="algorithm-choice" value="3" checked>
+            <label for="algorithm-choice">Dijkstra</label>
+
+            <!-- start the algorithm -->
+            <input type="button" value="Start">
         </div>
         <div id="canvas"></div>
     </body>

@@ -8,6 +8,11 @@
     margin: 0;
 }
 
+::selection{
+    background: var(--primary-color);
+    color: #000;
+}
+
 body{
     font-family: 'Verdana' !important;
     display: grid;
@@ -46,12 +51,36 @@ div#options{
     /* color: var(--secondary-color); */
 }
 
+div#options > h3{
+    margin-left: 10px;
+}
+
+div#options > input[type='button']{
+    background: whitesmoke;
+    height: 25%;
+    width: 5%;
+    padding: 4px;
+    border: solid 1px var(--secondary-color);
+    margin-left: 10px;
+}
+
+input[type='button']:hover{
+    cursor: pointer;
+    background: #ffffff !important;
+    color: var(--primary-color);
+    border-color: var(--primary-color) !important;
+}
+
 div#options > input[type='number']{
     height: 35%;
     padding: 4px;
     margin-left: 10px;
     margin-right: 10px;
     border: solid 1px var(--secondary-color);
+}
+
+input[type='number']:focus{
+    outline-color: var(--primary-color) !important;
 }
 
 div#options > input[type='radio']{

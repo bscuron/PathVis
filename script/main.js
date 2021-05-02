@@ -65,7 +65,7 @@ function drawGrid(){
             fill(255);
 
             //empty node
-            if(grid[i][j] == 0){
+            if(grid[i][j].value == 0){
                 fill(255);
             }
 
