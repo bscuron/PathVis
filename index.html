@@ -32,15 +32,15 @@
 
             <!-- Decide which algorithm to use -->
             <b>Algorithm:</b>
-            <input type="radio" id="bfs" name="algorithm-choice" value="1">
+            <input type="radio" id="bfs" name="algorithm-choice" value="1" checked>
             <label for="algorithm-choice">BFS</label>
             <input type="radio" id="dfs" name="algorithm-choice" value="2">
             <label for="algorithm-choice">DFS</label>
-            <input type="radio" id="dijkstra" name="algorithm-choice" value="3" checked>
+            <input type="radio" id="dijkstra" name="algorithm-choice" value="3">
             <label for="algorithm-choice">Dijkstra</label>
 
             <!-- start the algorithm -->
-            <input type="button" value="Start">
+            <input type="button" value="Start" onclick="startSearch()">
         </div>
         <div id="canvas"></div>
     </body>

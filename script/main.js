@@ -4,6 +4,9 @@ let grid = [];
 let defaultRows = 20;
 let defaultCols = 20;
 
+let pathRenderQueue = [];
+let speed = 2;
+
 function setup(){
     let cw = document.getElementById('canvas').offsetWidth;
     let ch = document.getElementById('canvas').offsetHeight;
@@ -20,6 +23,10 @@ function draw(){
     background(0);
     drawGrid();
     drawNodes();
+    if(pathRenderQueue.length > 0 && frameCount % speed == 0){
+        let current = pathRenderQueue.pop();
+        current.value = 4;
+    }
 }
 
 function windowResized(){
@@ -28,6 +35,7 @@ function windowResized(){
     canvas = resizeCanvas(cw, ch);
     xstep = width / cols;
     ystep = height / rows
+    initGrid();
 }
 
 function initGrid(){
@@ -46,7 +54,7 @@ function initGrid(){
     for(let i = 0; i < rows; i++){
         grid.push([]);
         for(let j = 0; j < cols; j++){
-            grid[i].push(new Node(0));
+            grid[i].push(new Node(j, i, 0));
         }
     }
 
@@ -82,6 +90,10 @@ function drawGrid(){
                 fill(0);
             }
 
+            //path node
+            if(grid[i][j].value == 4){
+                fill(252,252,159);
+            }
 
             rect(j * xstep, i * ystep, xstep, ystep);
             pop();
@@ -93,6 +105,14 @@ function drawNodes(){
     //mouse is not pressed
     if(!mouseIsPressed)
         return
+
+    //clear any path nodes
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[i].length; j++){
+            if(grid[i][j].value == 4)
+                grid[i][j].value = 0;
+        }
+    }
 
     let x = Math.floor(mouseX / xstep);
     let y = Math.floor(mouseY / ystep);
@@ -139,4 +159,127 @@ function drawNodes(){
 
     // console.log(`value = ${value}`);
     grid[y][x].value = value;
+}
+
+function startSearch(){
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[i].length; j++){
+            grid[i][j].parent = null;
+            grid[i][j].visited = false;
+            if(grid[i][j].value == 4)
+                grid[i][j].value = 0;
+        }
+    }
+    //get which algorithm is selected by the user
+    let radios = document.getElementsByName('algorithm-choice');
+    let algorithm = 0;
+
+    for(let i = 0; i < radios.length; i++) {
+        if(radios[i].checked){
+            // console.log('found the checkeditem')
+            algorithm = radios[i].value;
+        }
+    }
+
+    //0 == BFS, 1 == DFS, 2 == Dijkstra
+    // console.log(`algorithm = ${algorithm}`);
+
+    //bfs
+    if(algorithm == 1){
+        bfs();
+    }
+
+    //dfs
+    else if(algorithm == 2){
+    }
+
+    //dijkstra
+    else if(algorithm == 3){
+    }
+    
+}
+
+//returns the location of the starting node
+function getStartNode(){
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[i].length; j++){
+            if(grid[i][j].value == 1)
+                return grid[i][j];
+        }
+    }
+
+    alert('Please place a start node before starting!');
+    window.location.reload();
+}
+
+//returns the location of the finish node
+function getFinishNode(){
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[i].length; j++){
+            if(grid[i][j].value == 2)
+                return grid[i][j];
+        }
+    }
+
+    alert('Please place a finish node before starting!');
+    window.location.reload();
+}
+
+function bfs(){
+    let queue = [];
+    let startNode = getStartNode();
+    startNode.visited = true;
+    queue.push(startNode);
+
+    let current = null;
+    while(queue.length > 0){
+        current = queue.shift();
+
+        if(current.equals(getFinishNode())){
+            break;
+        }
+
+        //north
+        if(current.y > 0 && !grid[current.y-1][current.x].visited && grid[current.y-1][current.x].value != 3){
+            let neighbor = grid[current.y-1][current.x];
+            neighbor.visited = true;
+            neighbor.parent = current;
+            queue.push(neighbor);
+        }
+
+        //south
+        if(current.y < rows-1 && !grid[current.y+1][current.x].visited && grid[current.y+1][current.x].value != 3){
+            let neighbor = grid[current.y+1][current.x];
+            neighbor.visited = true;
+            neighbor.parent = current;
+            queue.push(neighbor);
+        }
+
+        //east
+        if(current.x < cols-1 && !grid[current.y][current.x+1].visited && grid[current.y][current.x+1].value != 3){
+            let neighbor = grid[current.y][current.x+1];
+            neighbor.visited = true;
+            neighbor.parent = current;
+            queue.push(neighbor);
+        }
+
+        //west
+        if(current.x > 0 && !grid[current.y][current.x-1].visited && grid[current.y][current.x-1].value != 3){
+            let neighbor = grid[current.y][current.x-1];
+            neighbor.visited = true;
+            neighbor.parent = current;
+            queue.push(neighbor);
+        }
+    }
+
+    pathRenderQueue = [];
+    if(!current.equals(getFinishNode())){
+        alert('No path found!');
+        return;
+    }
+    current = current.parent;
+    while(current.parent != null){
+        pathRenderQueue.push(current);
+        current = current.parent;
+    }
 }
