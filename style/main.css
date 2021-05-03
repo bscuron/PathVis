@@ -13,6 +13,10 @@
     color: #000;
 }
 
+html,body{
+    overflow: hidden !important;
+}
+
 body{
     font-family: 'Verdana' !important;
     display: grid;
