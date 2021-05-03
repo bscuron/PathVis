@@ -3,7 +3,7 @@
     --secondary-color: #7F8076;
 }
 
-*{
+*{  
     padding: 0;
     margin: 0;
 }
@@ -29,6 +29,10 @@ div#header-container{
 div#header-container > h1{
     font-size: 400%;
     color: var(--primary-color);
+}
+
+div#header-container > h1:hover{
+    cursor: pointer;
 }
 
 div#help-container{
@@ -75,6 +79,7 @@ div#operations-container{
 }
 
 div#operations-container > input[type='button']{
+    -webkit-appearance: none !important;
     background: var(--primary-color);
     color: #ffffff;
     min-height: 50%;
@@ -97,5 +102,54 @@ input[type='number']:focus{
     outline-color: var(--primary-color) !important;
 }
 
-/* div#canvas{ */
-/* } */
+img#help-icon{
+    object-fit: contain;
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    height: 3vh;
+    width: 3vw;
+    filter: invert(40%) sepia(92%) saturate(348%) hue-rotate(310deg) brightness(107%) contrast(76%);
+}
+
+img#help-icon:hover{
+    filter: grayscale(100%);
+    cursor: pointer;
+}
+
+div#help-menu{
+    background: #ffffff;
+    display: grid;
+    visibility: hidden;
+    position: absolute;
+    grid-template-columns: 40vw;
+    grid-template-rows: 3vh 5vh auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: solid 3px var(--primary-color);
+}
+
+div#help-menu > button{
+    background: var(--primary-color);
+    color: #ffffff;
+    text-align: right;
+    padding-right: 10px;
+    border: none;
+}
+
+div#help-menu > button:hover{
+    cursor: pointer;
+}
+
+div#help-menu > h1{
+    text-align: center;
+    color: var(--primary-color);
+}
+
+div#help-menu > p#help-text{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 40px;
+}
+

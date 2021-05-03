@@ -338,3 +338,9 @@ function bfs(){
 function generateMaze(){
 
 }
+
+function toggleHelpMenu(){
+    console.log('toggle');
+    let helpMenu = document.getElementById('help-menu');
+    helpMenu.style.visibility = helpMenu.style.visibility == 'hidden' || helpMenu.style.visibility == '' ? 'visible' : 'hidden';
+}

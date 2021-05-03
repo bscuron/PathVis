@@ -8,8 +8,9 @@
         <script src='./script/main.js'></script>
     </head>
     <body>
+        <img src='./assets/help-icon.png' id='help-icon' onclick="toggleHelpMenu()">
         <div id="header-container">
-            <h1>PathVis</h1>
+            <h1 onclick="window.location.reload()">PathVis</h1>
         </div>
 
         <div id="options-container">
@@ -44,5 +45,14 @@
         </div>
 
         <div id="canvas"></div>
+
+        <div id="help-menu">
+            <button id="exit-button" onclick="toggleHelpMenu()">X</button>
+            <h1>Help</h1>
+            <p id="help-text">Visualize pathfinding algorithms by selecting positions for the start node, finish node, 
+            and walls. To draw walls, select the 'wall' radio button in the options bar, then click and draw with your 
+            mouse. To undo a wall, hold down shift, click and draw with your mouse. To select which pathfinding 
+            algorithm to use, click on the dropdown menu in the options bar next to 'Algorithm'.</p>
+        </div>
     </body>
 </html>
