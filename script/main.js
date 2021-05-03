@@ -6,6 +6,7 @@ let defaultCols = 20;
 
 let pathRenderQueue = [];
 let visitedRenderQueue = [];
+
 let speed = 1;
 let algorithm = 1;
 
@@ -100,7 +101,6 @@ function drawGrid(){
     for(let i = 0; i < rows; i++){
         for(let j = 0; j < cols; j++){
             push();
-            fill(255);
 
             //empty node
             if(grid[i][j].value == 0){
@@ -129,7 +129,7 @@ function drawGrid(){
 
             //visited node
             else if(grid[i][j].value == 5){
-                fill(234, 233, 208);
+                fill(87,142,193);
             }
 
             rect(j * xstep, i * ystep, xstep, ystep);
@@ -317,7 +317,7 @@ function bfs(){
         }
     }
 
-    //remove the end node from the visited list (for rendering purposes)
+    //remove the finish node from the visited list (for rendering purposes)
     for(let i = 0; i < visitedRenderQueue.length; i++){
         if(visitedRenderQueue[i].value == 2){
             visitedRenderQueue.splice(i, 1);
@@ -336,8 +336,7 @@ function bfs(){
 }
 
 function generateMaze(){
-    let startNode = getStartNode();
-    let finishNode = getFinishNode();
+    initGrid();
 
     for(let i = 0; i < grid.length; i++){
         for(let j = 0; j < grid[i].length; j++){
@@ -345,6 +344,95 @@ function generateMaze(){
         }
     }
 
+    let current = grid[0][0];
+    current.mv = true;
+    let stack = [current];
+
+    while(stack.length > 0){
+        current = stack.pop();
+        let neighbors = [];
+
+        //north neighbor
+        if(current.y >= 2 && !grid[current.y-2][current.x].mv){
+            neighbors.push(grid[current.y-2][current.x]);
+        }
+
+        //south neighbor
+        if(current.y < rows-2 && !grid[current.y+2][current.x].mv){
+            neighbors.push(grid[current.y+2][current.x]);
+        }
+
+        //west neighbor
+        if(current.x >= 2 && !grid[current.y][current.x-2].mv){
+            neighbors.push(grid[current.y][current.x-2]);
+        }
+
+        //east neighbor
+        if(current.x < cols-2 && !grid[current.y][current.x+2].mv){
+            neighbors.push(grid[current.y][current.x+2]);
+        }
+
+        for(let i = 0; i < neighbors.length; i++)
+            neighbors[i].value = 0;
+
+        if(neighbors.length > 0){
+            stack.push(current);
+            let chosen = neighbors[Math.floor(Math.random() * neighbors.length)];
+            //north of current
+            if(chosen.y == current.y-2){
+                grid[current.y-1][current.x].value = 0;
+            }
+
+            //south of current
+            else if(chosen.y == current.y+2){
+                grid[current.y+1][current.x].value = 0;
+            }
+
+            //east of current
+            else if(chosen.x == current.x+2){
+                grid[current.y][current.x+1].value = 0;
+            }
+
+            //west of current
+            else if(chosen.x == current.x-2){
+                grid[current.y][current.x-1].value = 0;
+            }
+
+            chosen.mv = true;
+            stack.push(chosen);
+        }
+    }
+
+    //put the start and finish nodes as close to their default locations as possible
+    let closestDist = Number.MAX_SAFE_INTEGER;
+    let closestNode = null;
+
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[i].length; j++){
+            let current = grid[i][j];
+            if(current.value == 0 && dist(current.x, current.y, 1, 1) < closestDist){
+                closestDist = dist(current.x, current.y, 1, 1);
+                closestNode = current;
+            }
+        }
+    }
+
+    grid[closestNode.y][closestNode.x].value = 1;
+
+    closestDist = Number.MAX_SAFE_INTEGER;
+    closestNode = null;
+
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[i].length; j++){
+            let current = grid[i][j];
+            if(current.value == 0 && dist(current.x, current.y, cols-2, rows-2) < closestDist){
+                closestDist = dist(current.x, current.y, 1, 1);
+                closestNode = current;
+            }
+        }
+    }
+
+    grid[closestNode.y][closestNode.x].value = 2;
 }
 
 function toggleHelpMenu(){
@@ -352,3 +440,5 @@ function toggleHelpMenu(){
     let helpMenu = document.getElementById('help-menu');
     helpMenu.style.visibility = helpMenu.style.visibility == 'hidden' || helpMenu.style.visibility == '' ? 'visible' : 'hidden';
 }
+
+
