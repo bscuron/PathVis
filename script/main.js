@@ -336,6 +336,14 @@ function bfs(){
 }
 
 function generateMaze(){
+    let startNode = getStartNode();
+    let finishNode = getFinishNode();
+
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[i].length; j++){
+            grid[i][j].value = 3;
+        }
+    }
 
 }
 
