@@ -113,16 +113,19 @@ function drawGrid(){
 
             //empty node
             if(grid[i][j].value == 0){
+                stroke(221, 221, 221);
                 fill(255);
             }
 
             //start node
             else if(grid[i][j].value == 1){
+                noStroke();
                 fill(158, 182, 150)
             }
 
             //finish node
             else if(grid[i][j].value == 2){
+                noStroke();
                 fill(216, 108, 112);
             }
 
@@ -133,11 +136,13 @@ function drawGrid(){
 
             //path node
             if(grid[i][j].value == 4){
+                stroke(252,252,159);
                 fill(252,252,159);
             } 
 
             //visited node
             else if(grid[i][j].value == 5){
+                stroke(61,102,140);
                 fill(87,142,193);
             }
 
