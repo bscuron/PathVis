@@ -136,7 +136,7 @@ function drawGrid(){
 
             //path node
             if(grid[i][j].value == 4){
-                stroke(252,252,159);
+                stroke(216,216,134);
                 fill(252,252,159);
             } 
 
