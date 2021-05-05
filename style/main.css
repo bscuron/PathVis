@@ -21,7 +21,7 @@ body{
     font-family: 'Verdana' !important;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 10vh 5vh 5vh 80vh;
+    grid-template-rows: 10vh 5vh 5vh 75vh 5vh;
 }
 
 div#header-container{
@@ -157,3 +157,28 @@ div#help-menu > p#help-text{
     margin-bottom: 40px;
 }
 
+div#playback-menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: solid 3px var(--primary-color); 
+}
+
+div#playback-menu > input[type='button']{
+    -webkit-appearance: none !important;
+    background: var(--primary-color);
+    color: #ffffff;
+    min-height: 50%;
+    min-width: 10%;
+    padding: 4px !important;
+    border: solid 1px #ffffff;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+div#playback-menu > input[type='button']:hover{
+    cursor: pointer;
+    background: #ffffff !important;
+    color: var(--primary-color);
+    border-color: var(--primary-color) !important;
+}

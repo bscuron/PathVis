@@ -4,19 +4,19 @@
         <title>PathVis</title>
         <link rel="stylesheet" type="text/css" href="./style/main.css" media="screen"/>
         <script src="https://cdn.jsdelivr.net/npm/p5@1.3.1/lib/p5.min.js"></script>
-        <script src='./script/Node.js'></script>
-        <script src='./script/main.js'></script>
+        <script src="./script/Node.js"></script>
+        <script src="./script/main.js"></script>
     </head>
     <body>
-        <img src='./assets/help-icon.png' id='help-icon' onclick="toggleHelpMenu()">
+        <img src="./assets/help-icon.png" id="help-icon" onclick="toggleHelpMenu()">
         <div id="header-container">
             <h1 onclick="window.location.reload()">PathVis</h1>
         </div>
 
         <div id="options-container">
             <!-- Input how many rows/cols in the grid (Default is 20x20) -->
-            <input id="rows" type="number" min='5' placeholder="Rows" onkeyup="initGrid()">
-            <input id="cols" type="number" min='5' placeholder="Cols" onkeyup="initGrid()">
+            <input id="rows" type="number" min="5" placeholder="Rows" onkeyup="initGrid()">
+            <input id="cols" type="number" min="5" placeholder="Cols" onkeyup="initGrid()">
 
             <!-- Pick which node you want to place on the grid -->
             <b>Node Type:</b>
@@ -49,9 +49,17 @@
             <button id="exit-button" onclick="toggleHelpMenu()">X</button>
             <h1>Help</h1>
             <p id="help-text">Visualize pathfinding algorithms by selecting positions for the start node, finish node, 
-            and walls. To draw walls, select the 'wall' radio button in the options bar, then click and draw with your 
+            and walls. To draw walls, select the "wall" radio button in the options bar, then click and draw with your 
             mouse. To undo a wall, hold down shift, click and draw with your mouse. To select which pathfinding 
-            algorithm to use, click on the dropdown menu in the options bar next to 'Algorithm'.</p>
+            algorithm to use, click on the dropdown menu in the options bar next to "Algorithm".</p>
+        </div>
+
+        <div id="playback-menu">
+            <input type="button" value="Start" onclick="startSearch()">
+            <input type="button" value="Play/Pause" onclick="togglePlay()">
+            <b>Speed:</b>
+            <input type="range" id="speed-slider" value="8" min="0" max="10">
+            <input type="button" value="Instant Path (BFS)" onclick="instantPath()">
         </div>
     </body>
 </html>

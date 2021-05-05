@@ -11,6 +11,8 @@ let visitedRenderQueue = [];
 //frame rate mod factor ex (rameCount % speed == 0)
 let speed = 1;
 
+let play = true;
+
 //decides which algorithm to use for pathfinding
 let algorithm = 1;
 
@@ -30,9 +32,11 @@ function setup(){
 
 function draw(){
     background(0);
+    updateSpeed();
     drawGrid();
     drawNodes();
-    drawVisual(algorithm);
+    if(play == true)
+        drawVisual(algorithm);
 }
 
 function drawVisual(algo){
@@ -149,6 +153,13 @@ function drawNodes(){
     if(!mouseIsPressed)
         return
 
+    let x = Math.floor(mouseX / xstep);
+    let y = Math.floor(mouseY / ystep);
+
+    //not inside the canvas
+    if(x < 0 || x > cols-1 || y < 0 || y > rows-1)
+        return
+
     //clear any path nodes and empty the render queue
     pathRenderQueue = [];
     for(let i = 0; i < grid.length; i++){
@@ -166,13 +177,6 @@ function drawNodes(){
                 grid[i][j].value = 0;
         }
     }
-
-    let x = Math.floor(mouseX / xstep);
-    let y = Math.floor(mouseY / ystep);
-
-    //not inside the canvas
-    if(x < 0 || x > cols || y < 0 || y > rows)
-        return
 
     // TODO Remove this
     // console.log(`x = ${x}\ny = ${y}`)
@@ -210,11 +214,12 @@ function drawNodes(){
         }
     }
 
-    // console.log(`value = ${value}`);
     grid[y][x].value = value;
 }
 
 function startSearch(){
+    play = true;
+
     if(getStartNode() == null || getFinishNode() == null)
         alert('Place both a start and finish node before starting!');
 
@@ -222,7 +227,7 @@ function startSearch(){
         for(let j = 0; j < grid[i].length; j++){
             grid[i][j].parent = null;
             grid[i][j].visited = false;
-            if(grid[i][j].value == 4)
+            if(grid[i][j].value == 4 || grid[i][j].value == 5)
                 grid[i][j].value = 0;
         }
     }
@@ -232,14 +237,16 @@ function startSearch(){
 
     // console.log(`algorithm = ${algorithm}`);
 
+    instantaneous = speed == 0 ? true : false;
+
     //bfs
     if(algorithm == 1){
-        bfs();
+        bfs(instantaneous);
     }
 
     //dfs
     else if(algorithm == 2){
-        dfs(grid, getStartNode());
+        dfs(instantaneous);
     }
 
 }
@@ -268,7 +275,7 @@ function getFinishNode(){
     return null;
 }
 
-function bfs(){
+function bfs(instantaneous){
     let queue = [];
     let startNode = getStartNode();
     startNode.visited = true;
@@ -316,6 +323,17 @@ function bfs(){
             neighbor.visited = true;
             neighbor.parent = current;
             queue.push(neighbor);
+        }
+    }
+
+    //instantly render if the user wants that
+    if(instantaneous){
+        pathRenderQueue = [];
+        visitedRenderQueue = [];
+        current = current.parent;
+        while(current.parent != null){
+            current.value = 4;
+            current = current.parent;
         }
     }
 
@@ -497,9 +515,36 @@ function generateMaze(){
 }
 
 function toggleHelpMenu(){
-    console.log('toggle');
+    // console.log('toggle');
     let helpMenu = document.getElementById('help-menu');
     helpMenu.style.visibility = helpMenu.style.visibility == 'hidden' || helpMenu.style.visibility == '' ? 'visible' : 'hidden';
 }
 
 
+function togglePlay(){
+    play = !play;
+}
+
+function updateSpeed(){
+    let val = document.getElementById('speed-slider').value;
+    if(val == 0){
+        speed = 0;
+        return;
+    }
+
+    val = Math.abs(document.getElementById('speed-slider').max - val) + 1;
+    speed = val;
+}
+
+function instantPath(){
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[i].length; j++){
+            grid[i][j].parent = null;
+            grid[i][j].visited = false;
+            if(grid[i][j].value == 4 || grid[i][j].value == 5)
+                grid[i][j].value = 0;
+        }
+    }
+
+    bfs(true);
+}
