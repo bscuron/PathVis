@@ -44,7 +44,7 @@ function drawVisual(algo){
     }else if(algo == 2){
         showAmount = 1;
     }else if(algo == 3){
-        showAmount = 4;
+        showAmount = 1;
     }
 
     //draw visited nodes first
@@ -230,7 +230,6 @@ function startSearch(){
     let algorithmDrop = document.getElementById('algorithm-choice');
     algorithm = algorithmDrop.options[algorithmDrop.selectedIndex].value;
 
-    //0 == BFS, 1 == DFS, 2 == Dijkstra
     // console.log(`algorithm = ${algorithm}`);
 
     //bfs
@@ -243,10 +242,6 @@ function startSearch(){
         dfs(grid, getStartNode());
     }
 
-    //dijkstra
-    else if(algorithm == 3){
-    }
-    
 }
 
 //returns the location of the starting node

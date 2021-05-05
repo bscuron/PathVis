@@ -3,10 +3,16 @@ class Node{
         this.x = x;
         this.y = y;
         this.value = value;
+
+        //used in search every search algorithm
         this.visited = false;
+
         //maze visited (for maze generation purposes)
         this.mv = false;
         this.parent = null;
+
+        //used for A* algo
+        this.dist = Number.MAX_SAFE_INTEGER;
     }
 
     equals(n){
