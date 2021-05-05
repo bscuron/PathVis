@@ -218,6 +218,8 @@ function drawNodes(){
 }
 
 function startSearch(){
+    pathRenderQueue = [];
+    visitedRenderQueue = [];
     play = true;
 
     if(getStartNode() == null || getFinishNode() == null)
