@@ -227,8 +227,10 @@ function startSearch(){
     visitedRenderQueue = [];
     play = true;
 
-    if(getStartNode() == null || getFinishNode() == null)
+    if(getStartNode() == null || getFinishNode() == null){
         alert('Place both a start and finish node before starting!');
+        return;
+    }
 
     for(let i = 0; i < grid.length; i++){
         for(let j = 0; j < grid[i].length; j++){
@@ -544,8 +546,10 @@ function updateSpeed(){
 }
 
 function instantPath(){
-    if(getStartNode() == null || getFinishNode() == null)
+    if(getStartNode() == null || getFinishNode() == null){
         alert('Place both a start and finish node before starting!');
+        return;
+    }
 
     for(let i = 0; i < grid.length; i++){
         for(let j = 0; j < grid[i].length; j++){
