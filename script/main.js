@@ -99,11 +99,6 @@ function initGrid(){
 
     grid[1][1].value = 1;
     grid[rows - 2][cols - 2].value = 2;
-
-    // TODO remove these
-    // console.log(`Rows = ${rows}`);
-    // console.log(`Cols = ${cols}`);
-    // console.log(grid);
 }
 
 function drawGrid(){
@@ -183,13 +178,8 @@ function drawNodes(){
         }
     }
 
-    // TODO Remove this
-    // console.log(`x = ${x}\ny = ${y}`)
-
     //if the shift key is down, it clears any node underneath the cursor
     if(keyIsDown(16)){
-        // TODO remove this
-        // console.log('Clearing node under cursor...')
 
         //set the node under the cursor to blank
         grid[y][x].value = 0;
@@ -198,19 +188,16 @@ function drawNodes(){
 
     //get the radio buttons
     let radios = document.getElementsByName('node-type');
-    // console.log(radios);
     let value = 0;
 
     for(let i = 0; i < radios.length; i++) {
         if(radios[i].checked){
-            // console.log('found the checkeditem')
             value = radios[i].value;
         }
     }
 
     //if they are choosing a new start/finish node, reset the previous start/finish node
     if(value == 1 || value == 2){
-        // console.log('unchecking previous start/finish node...');
         for(let i = 0; i < grid.length; i++){
             for(let j = 0; j < grid[i].length; j++){
                 if(grid[i][j].value == value)
@@ -241,8 +228,6 @@ function startSearch(){
 
     let algorithmDrop = document.getElementById('algorithm-choice');
     algorithm = algorithmDrop.options[algorithmDrop.selectedIndex].value;
-
-    // console.log(`algorithm = ${algorithm}`);
 
     instantaneous = speed == 0 ? true : false;
 
@@ -420,7 +405,6 @@ function dfs(){
     return current;
 }
 
-
 function generateMaze(){
     initGrid();
 
@@ -522,7 +506,6 @@ function generateMaze(){
 }
 
 function toggleHelpMenu(){
-    // console.log('toggle');
     let helpMenu = document.getElementById('help-menu');
     helpMenu.style.visibility = helpMenu.style.visibility == 'hidden' || helpMenu.style.visibility == '' ? 'visible' : 'hidden';
 }
