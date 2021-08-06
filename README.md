@@ -1,3 +1,3 @@
 # PathVis
 
-[demo](https://bscuron19.github.io/PathVis/)
+[demo](https://bscuron.github.io/PathVis/)
