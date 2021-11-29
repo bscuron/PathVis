@@ -79,9 +79,9 @@ function windowResized(){
 
 function initGrid(){
     //read in the input from the user. If the number give > 0 use it, otherwise use the default values
-    let rowInput = document.getElementById('rows').value;
+    let rowInput = Math.round(document.getElementById('rows').value);
     rows = rowInput >= 5 ? rowInput : defaultRows;
-    let colInput = document.getElementById('cols').value;
+    let colInput = Math.round(document.getElementById('cols').value);
     cols = colInput >= 5 ? colInput : defaultCols;
 
     //update the size of the blocks/nodes
@@ -406,6 +406,7 @@ function dfs(){
 
     return current;
 }
+
 
 function generateMaze(){
     initGrid();
